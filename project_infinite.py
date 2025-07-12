@@ -83,9 +83,8 @@ if level_0_dropdown == "Character":
             payload = {"text": level_2_dropdown}
             r = requests.post(st.secrets["general"]["character_brief_endpoint"], json=payload, timeout=120)
             if r.ok:
-                character_brief_text = r.json().get("character_brief").split("|")    
-                for i in  character_brief_text:
-                    st.markdown(i)           
+                character_brief_text = r.json().get("character_brief")   
+                st.markdown(character_brief_text)           
             else:
                 st.error(f"{r.status_code} {r.text}")  # show server’s complaint
                 st.stop()
