@@ -145,8 +145,7 @@ if level_0_dropdown == "Scene":
     payload = {"text": "all"}
     r = requests.post(st.secrets["general"]["get_all_scenes_in_reverse_order_endpoint"], json=payload, timeout=120)
     if r.ok:
-        scenes_list = r.json().get("scene_names")  
-        st.markdown(scenes_list)        # transcript
+        scenes_list = r.json().get("scene_names").split("|")    
     else:
         st.error(f"{r.status_code} {r.text}")  # show server’s complaint
         st.stop()
