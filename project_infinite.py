@@ -3,31 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 import tempfile
-from PIL import Image
-from io import BytesIO
 import io
 import pandas as pd
 import time
-import polars as pl
-import seaborn as sns
-from PIL import Image, ImageDraw, ImageSequence, ImageFont
-from google.oauth2 import service_account
-from google.cloud import storage
-from st_files_connection import FilesConnection
-from PIL import Image
 import os
-from streamlit_lottie import st_lottie,st_lottie_spinner
 import json
-from streamlit import runtime
-from streamlit.runtime.scriptrunner import get_script_run_ctx
-import toml
-import jwt
 import requests
-import uuid
 from datetime import datetime
 from io import StringIO
-import concurrent.futures
-import base64
 
 current_date = datetime.now()
 formatted_date = current_date.strftime("%d_%m_%Y_%H_%M_%S")
