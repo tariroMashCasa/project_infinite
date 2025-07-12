@@ -156,7 +156,7 @@ if level_0_dropdown == "Scene":
         r = requests.post(st.secrets["general"]["get_raw_narrative_from_scene_endpoint"], json=payload, timeout=120)
         if r.ok:
             scene_narrative_text = r.json().get("scene_narrative")  
-            st.markdown(scene_narrative_text)        # transcript
+            st.text(scene_narrative_text)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
