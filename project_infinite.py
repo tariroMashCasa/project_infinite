@@ -84,7 +84,7 @@ if level_0_dropdown == "Character":
             payload = {"text": level_2_dropdown}
             r = requests.post(st.secrets["general"]["character_brief_endpoint"], json=payload, timeout=120)
             if r.ok:
-                character_brief_text = r.json().get("character_brief")  
+                character_brief_text = r.json().get("character_brief").split("|")    
                 st.markdown(character_brief_text)        # transcript
             else:
                 st.error(f"{r.status_code} {r.text}")  # show server’s complaint
@@ -108,7 +108,7 @@ if level_0_dropdown == "Character":
             payload = {"text": level_2_dropdown}  
             r = requests.post(st.secrets["general"]["character_memories_endpoint"], json=payload, timeout=120)
             if r.ok:
-                memories_text = r.json().get("character_memories")  
+                memories_text = r.json().get("character_memories").split("|")    
                 st.markdown(memories_text)        # transcript
             else:
                 st.error(f"{r.status_code} {r.text}")  # show server’s complaint
@@ -134,7 +134,7 @@ if level_0_dropdown == "Character":
             payload = {"text": "motivations"}
             r = requests.post(st.secrets["general"]["character_motivations_endpoint"], json=payload, timeout=120)
             if r.ok:
-                motivations_text = r.json().get("character_motivations")  
+                motivations_text = r.json().get("character_motivations").split("|")    
                 st.markdown(motivations_text)        # transcript
             else:
                 st.error(f"{r.status_code} {r.text}")  # show server’s complaint
