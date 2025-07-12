@@ -130,7 +130,7 @@ if level_0_dropdown == "Character":
         if level_2_dropdown != "":
         
 
-            payload = {"text": "motivations"}
+            payload = {"text": level_2_dropdown}
             r = requests.post(st.secrets["general"]["character_motivations_endpoint"], json=payload, timeout=120)
             if r.ok:
                 motivations_text = r.json().get("character_motivations").split("|") 
