@@ -63,8 +63,57 @@ if level_0_dropdown == "World":
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
 
+if level_0_dropdown == "Character":
+    level_1_dropdown = st.selectbox("What would you like to see", ["","Character Brief","Memories","Motivations"])
+    if level_1_dropdown == "Character Brief":
+        payload = {"text": "character_brief"}
+        r = requests.post(st.secrets["general"]["character_brief_endpoint"], json=payload, timeout=120)
+        if r.ok:
+            character_brief_text = r.json().get("character_brief")  
+            st.markdown(character_brief_text)        # transcript
+        else:
+            st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+            st.stop()
+    elif level_1_dropdown == "Memories":
+        payload = {"text": "memories"}  
+        r = requests.post(st.secrets["general"]["character_memories_endpoint"], json=payload, timeout=120)
+        if r.ok:
+            memories_text = r.json().get("memories")  
+            st.markdown(memories_text)        # transcript
+        else:
+            st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+            st.stop()
+    elif level_1_dropdown == "Motivations":
+        payload = {"text": "motivations"}
+        r = requests.post(st.secrets["general"]["character_motivations_endpoint"], json=payload, timeout=120)
+        if r.ok:
+            motivations_text = r.json().get("motivations")  
+            st.markdown(motivations_text)        # transcript
+        else:
+            st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+            st.stop()
 
- 
+if level_0_dropdown == "Scene":
+    # get the list of scenes by calling the get_all_scenes_in_reverse_order endpoint
+    payload = {"text": "all"}
+    r = requests.post(st.secrets["general"]["get_all_scenes_in_reverse_order_endpoint"], json=payload, timeout=120)
+    if r.ok:
+        scenes_list = r.json().get("scene_names")  
+        st.markdown(scenes_list)        # transcript
+    else:
+        st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+        st.stop()
+
+    level_1_dropdown = st.selectbox("What would you like to see",[""] + scenes_list)
+    if level_1_dropdown != "":
+        payload = {"text": level_1_dropdown}
+        r = requests.post(st.secrets["general"]["get_raw_narrative_from_scene_endpoint"], json=payload, timeout=120)
+        if r.ok:
+            scene_narrative_text = r.json().get("scene_narrative")  
+            st.markdown(scene_narrative_text)        # transcript
+        else:
+            st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+            st.stop()
 
 
 
