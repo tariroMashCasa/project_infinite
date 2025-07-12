@@ -66,32 +66,79 @@ if level_0_dropdown == "World":
 if level_0_dropdown == "Character":
     level_1_dropdown = st.selectbox("What would you like to see", ["","Character Brief","Memories","Motivations"])
     if level_1_dropdown == "Character Brief":
-        payload = {"text": "character_brief"}
-        r = requests.post(st.secrets["general"]["character_brief_endpoint"], json=payload, timeout=120)
+        
+        # get the list of characters by calling the get_all_characters_names endpoin
+
+        # get the list of characters by calling the get_all_characters_in_reverse_order endpoint
+        payload = {"text": "all"}
+        r = requests.post(st.secrets["general"]["get_all_characters_endpoint"], json=payload, timeout=120)
         if r.ok:
-            character_brief_text = r.json().get("character_brief")  
-            st.markdown(character_brief_text)        # transcript
+            characters_list = r.json().get("character_names").split("|")   
+            st.markdown(characters_list)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
-    elif level_1_dropdown == "Memories":
-        payload = {"text": "memories"}  
-        r = requests.post(st.secrets["general"]["character_memories_endpoint"], json=payload, timeout=120)
+
+        level_2_dropdown = st.selectbox("Select Character", [""] + characters_list)
+        if level_2_dropdown != "":
+            payload = {"text": level_2_dropdown}
+            r = requests.post(st.secrets["general"]["character_brief_endpoint"], json=payload, timeout=120)
+            if r.ok:
+                character_brief_text = r.json().get("character_brief")  
+                st.markdown(character_brief_text)        # transcript
+            else:
+                st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+                st.stop()
+    if level_1_dropdown == "Memories":
+        # get the list of characters by calling the get_all_characters_names endpoin
+
+        # get the list of characters by calling the get_all_characters_in_reverse_order endpoint
+        payload = {"text": "all"}
+        r = requests.post(st.secrets["general"]["get_all_characters_endpoint"], json=payload, timeout=120)
         if r.ok:
-            memories_text = r.json().get("memories")  
-            st.markdown(memories_text)        # transcript
+            characters_list = r.json().get("character_names").split("|")   
+            st.markdown(characters_list)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
-    elif level_1_dropdown == "Motivations":
-        payload = {"text": "motivations"}
-        r = requests.post(st.secrets["general"]["character_motivations_endpoint"], json=payload, timeout=120)
+
+        level_2_dropdown = st.selectbox("Select Character", [""] + characters_list)
+        if level_2_dropdown != "":
+
+            payload = {"text": level_2_dropdown}  
+            r = requests.post(st.secrets["general"]["character_memories_endpoint"], json=payload, timeout=120)
+            if r.ok:
+                memories_text = r.json().get("memories")  
+                st.markdown(memories_text)        # transcript
+            else:
+                st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+                st.stop()
+
+    if level_1_dropdown == "Motivations":
+        # get the list of characters by calling the get_all_characters_names endpoin
+
+        # get the list of characters by calling the get_all_characters_in_reverse_order endpoint
+        payload = {"text": "all"}
+        r = requests.post(st.secrets["general"]["get_all_characters_endpoint"], json=payload, timeout=120)
         if r.ok:
-            motivations_text = r.json().get("motivations")  
-            st.markdown(motivations_text)        # transcript
+            characters_list = r.json().get("character_names").split("|")   
+            st.markdown(characters_list)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
+
+        level_2_dropdown = st.selectbox("Select Character", [""] + characters_list)
+        if level_2_dropdown != "":
+        
+
+            payload = {"text": "motivations"}
+            r = requests.post(st.secrets["general"]["character_motivations_endpoint"], json=payload, timeout=120)
+            if r.ok:
+                motivations_text = r.json().get("motivations")  
+                st.markdown(motivations_text)        # transcript
+            else:
+                st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+                st.stop()
 
 if level_0_dropdown == "Scene":
     # get the list of scenes by calling the get_all_scenes_in_reverse_order endpoint
