@@ -38,7 +38,7 @@ if level_0_dropdown == "World":
         payload = {"text": "initial"}
         r = requests.post(st.secrets["general"]["API_URL"], json=payload, timeout=120)
         if r.ok:
-            world_state_text = r.json().get("text")  
+            world_state_text = r.json().get("world_state")  
             st.markdown(world_state_text)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
@@ -48,7 +48,7 @@ if level_0_dropdown == "World":
         payload = {"text": "latest"}
         r = requests.post(st.secrets["general"]["API_URL"], json=payload, timeout=120)
         if r.ok:
-            world_state_text = r.json().get("text")  
+            world_state_text = r.json().get("world_state")  
             st.markdown(world_state_text)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
@@ -57,7 +57,7 @@ if level_0_dropdown == "World":
         payload = {"text": "full"}
         r = requests.post(st.secrets["general"]["API_URL"], json=payload, timeout=120)
         if r.ok:
-            world_state_text = r.json().get("text")  
+            world_state_text = r.json().get("world_state")  
             st.markdown(world_state_text)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
