@@ -74,7 +74,6 @@ if level_0_dropdown == "Character":
         r = requests.post(st.secrets["general"]["get_all_characters_endpoint"], json=payload, timeout=120)
         if r.ok:
             characters_list = r.json().get("character_names").split("|")   
-            st.markdown(characters_list)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
@@ -98,7 +97,6 @@ if level_0_dropdown == "Character":
         r = requests.post(st.secrets["general"]["get_all_characters_endpoint"], json=payload, timeout=120)
         if r.ok:
             characters_list = r.json().get("character_names").split("|")   
-            st.markdown(characters_list)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
@@ -124,7 +122,6 @@ if level_0_dropdown == "Character":
         r = requests.post(st.secrets["general"]["get_all_characters_endpoint"], json=payload, timeout=120)
         if r.ok:
             characters_list = r.json().get("character_names").split("|")   
-            st.markdown(characters_list)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
