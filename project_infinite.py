@@ -11,6 +11,7 @@ import json
 import requests
 from datetime import datetime
 from io import StringIO
+from PIL import Image
 
 current_date = datetime.now()
 formatted_date = current_date.strftime("%d_%m_%Y_%H_%M_%S")
