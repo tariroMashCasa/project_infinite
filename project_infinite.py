@@ -170,7 +170,9 @@ if level_0_dropdown == "Influence":
     r = requests.post(st.secrets["general"]["get_world_influence_of_all_characters_endpoint"], json=payload, timeout=120)
     if r.ok:
         characters_list = r.json().get("character_influence_summary")
-        st.markdown(characters_list)   
+        influence_df = pd.read_json(characters_list)
+        st.dataframe(influence_df)  
+        # st.markdown(characters_list)   
     else:
         st.error(f"{r.status_code} {r.text}")  # show server’s complaint
         st.stop()
