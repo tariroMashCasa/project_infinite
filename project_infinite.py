@@ -30,7 +30,7 @@ st.set_page_config(
 st.title("Project Infinite")
 
 # this is going to be the first dropoown to select what information you want to get from the world
-level_0_dropdown = st.selectbox("What would you like to see", ["","World","Character","Scene"])
+level_0_dropdown = st.selectbox("What would you like to see", ["","World","Character","Scene","Influence"])
 
 if level_0_dropdown == "World":
     level_1_dropdown = st.selectbox("What would you like to see", ["","Initial","Latest","Full"])
@@ -162,7 +162,18 @@ if level_0_dropdown == "Scene":
 
 
 
+if level_0_dropdown == "Influence":
+    # get the list of characters by calling the get_all_characters_names endpoin
 
+    # get the list of characters by calling the get_all_characters_in_reverse_order endpoint
+    payload = {"text": "all"}
+    r = requests.post(st.secrets["general"]["get_world_influence_of_all_characters_endpoint"], json=payload, timeout=120)
+    if r.ok:
+        characters_list = r.json().get("character_influence_summary")
+        st.markdown(characters_list)   
+    else:
+        st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+        st.stop()
 
 
 
