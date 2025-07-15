@@ -174,18 +174,19 @@ if level_0_dropdown == "Scene":
         # get the scene summary first
         r = requests.post(st.secrets["general"]["get_scene_summary_endpoint"], json=payload, timeout=120)
         if r.ok:
-            st.header("Scene Summary")
-            scene_summary_text = r.json().get("scene_summary")  
-            # st.markdown(f"**{scene_summary_text}**")        
-            # alternative
-            st.markdown(
-                       f"""
-                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px; color:black;">
-                            <em>{scene_summary_text}</em>
-                        </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
+            if r.json().get("scene_summary") != "":
+                st.header("Scene Summary")
+                scene_summary_text = r.json().get("scene_summary")  
+                # st.markdown(f"**{scene_summary_text}**")        
+                # alternative
+                st.markdown(
+                        f"""
+                            <div style="background-color:#f0f8ff; padding:10px; border-radius:6px; color:black;">
+                                <em>{scene_summary_text}</em>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
