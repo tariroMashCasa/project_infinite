@@ -158,7 +158,16 @@ if level_0_dropdown == "Scene":
         if r.ok:
             st.header("Scene Summary")
             scene_summary_text = r.json().get("scene_summary")  
-            st.code(scene_summary_text)        # transcript
+            # st.markdown(f"**{scene_summary_text}**")        
+            # alternative
+            st.markdown(
+                       f"""
+                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px">
+                            <em>{scene_summary_text}</em>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
