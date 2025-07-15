@@ -158,7 +158,7 @@ if level_0_dropdown == "Scene":
         if r.ok:
             st.header("Scene Summary")
             scene_summary_text = r.json().get("scene_summary")  
-            st.markdown(scene_summary_text)        # transcript
+            st.code(scene_summary_text)        # transcript
         else:
             st.error(f"{r.status_code} {r.text}")  # show server’s complaint
             st.stop()
