@@ -152,6 +152,21 @@ if level_0_dropdown == "Scene":
     level_1_dropdown = st.selectbox("What would you like to see",[""] + scenes_list)
     if level_1_dropdown != "":
         payload = {"text": level_1_dropdown}
+
+        # get the scene summary first
+        r = requests.post(st.secrets["general"]["get_scene_summary_endpoint"], json=payload, timeout=120)
+        if r.ok:
+            st.header("Scene Summary")
+            scene_summary_text = r.json().get("scene_summary")  
+            st.markdown(scene_summary_text)        # transcript
+        else:
+            st.error(f"{r.status_code} {r.text}")  # show server’s complaint
+            st.stop()
+        # insrt a seperator
+        st.markdown("---")
+
+        # get the scene narrative
+        st.header("Scene Narrative")
         r = requests.post(st.secrets["general"]["get_raw_narrative_from_scene_endpoint"], json=payload, timeout=120)
         if r.ok:
             scene_narrative_text = r.json().get("scene_narrative")  
