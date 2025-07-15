@@ -108,7 +108,16 @@ if level_0_dropdown == "Character":
             if r.ok:
                 memories_text = r.json().get("character_memories").split("|")    
                 for i in  memories_text:
-                    st.markdown(i)        
+                    # st.markdown(i)  
+                    # alternative
+                    st.markdown(
+                       f"""
+                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px">
+                            <em>{i}</em>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
             else:
                 st.error(f"{r.status_code} {r.text}")  # show server’s complaint
                 st.stop()
@@ -134,7 +143,16 @@ if level_0_dropdown == "Character":
             if r.ok:
                 motivations_text = r.json().get("character_motivations").split("|") 
                 for i in  motivations_text:
-                    st.markdown(i)        # transcript
+                    # st.markdown(i)        # transcript
+                    # alternative
+                    st.markdown(
+                       f"""
+                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px">
+                            <em>{i}</em>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
             else:
                 st.error(f"{r.status_code} {r.text}")  # show server’s complaint
                 st.stop()
