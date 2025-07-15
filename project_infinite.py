@@ -112,7 +112,7 @@ if level_0_dropdown == "Character":
                     # alternative
                     st.markdown(
                        f"""
-                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px">
+                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px; color:black;">
                             <em>{i}</em>
                         </div>
                         """,
@@ -147,7 +147,7 @@ if level_0_dropdown == "Character":
                     # alternative
                     st.markdown(
                        f"""
-                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px">
+                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px; color:black;">
                             <em>{i}</em>
                         </div>
                         """,
@@ -180,7 +180,7 @@ if level_0_dropdown == "Scene":
             # alternative
             st.markdown(
                        f"""
-                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px">
+                        <div style="background-color:#f0f8ff; padding:10px; border-radius:6px; color:black;">
                             <em>{scene_summary_text}</em>
                         </div>
                         """,
