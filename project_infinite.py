@@ -83,7 +83,7 @@ if level_0_dropdown == "Character":
         if level_2_dropdown != "":
 
             # get the image of the character
-            payload = {"character": "carmilla"}
+            payload = {"character": level_2_dropdown}
             r = requests.post(st.secrets["general"]["get_character_image_endpoint"], json=payload, timeout=120)
             if r.ok:
                 # character_json_dict_list = r.json().get("character_image")
