@@ -12,7 +12,7 @@ import requests
 from datetime import datetime
 from io import StringIO
 from PIL import Image
-
+import base64
 current_date = datetime.now()
 formatted_date = current_date.strftime("%d_%m_%Y_%H_%M_%S")
 
@@ -69,6 +69,7 @@ if level_0_dropdown == "Character":
         
         # get the list of characters by calling the get_all_characters_names endpoin
 
+
         # get the list of characters by calling the get_all_characters_in_reverse_order endpoint
         payload = {"text": "all"}
         r = requests.post(st.secrets["general"]["get_all_characters_endpoint"], json=payload, timeout=120)
@@ -80,6 +81,24 @@ if level_0_dropdown == "Character":
 
         level_2_dropdown = st.selectbox("Select Character", [""] + characters_list)
         if level_2_dropdown != "":
+
+            # get the image of the character
+            payload = {"character": "carmilla"}
+            r = requests.post(st.secrets["general"]["get_character_image_endpoint"], json=payload, timeout=120)
+            if r.ok:
+                # character_json_dict_list = r.json().get("character_image")
+                b64_str = r.json()["character_image"]
+                # 2) —— DECODE bytes -------------------------------------------------
+                img_bytes = base64.b64decode(b64_str)
+                
+                # 3) —— LOAD into an image object -----------------------------------
+                # Pillow can open from a bytes-buffer
+                img = Image.open(io.BytesIO(img_bytes))
+                st.image(img)
+                
+            else:
+                print(r.status_code, r.text)
+
             payload = {"text": level_2_dropdown}
             r = requests.post(st.secrets["general"]["character_brief_endpoint"], json=payload, timeout=120)
             if r.ok:
